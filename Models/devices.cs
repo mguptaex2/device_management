@@ -20,14 +20,18 @@ namespace device_management.Models
 
         public string status { get; set; }
         public Specification specifications { get; set; }
-       
+       public string assign_date { get; set; }
+        public string return_date { get; set; }
+        public name assign_to { get; set; }
+        public name assign_by { get; set; }
 
         internal Appdb Db { get; set; }
 
         public devices()
         {
             specifications = new Specification();
-            
+            assign_to = new name();
+            assign_by = new name();
         }
 
         internal devices(Appdb db)
@@ -49,6 +53,15 @@ namespace device_management.Models
 
             return spec1;
         }
+        private name ReadName(MySqlDataReader reader,name name1,string prefix)
+        {
+            name1 = new name();
+            name1.first_name = GetSafeString(reader, prefix+"_first_name");
+            name1.middle_name = GetSafeString(reader, prefix+"_middle_name");
+            name1.last_name = GetSafeString(reader, prefix+"_last_name");
+            return name1;
+        }
+
         public List<devices> GetAllDevices()
         {
             using var cmd = Db.Connection.CreateCommand();
@@ -57,13 +70,13 @@ namespace device_management.Models
             return ReadAll(cmd.ExecuteReader());
      
          }
-        public List<devices> getDeviceByStatus(string status)
+        public List<devices> getDeviceBySearch(string search)
         {
             using (var cmd = Db.Connection.CreateCommand())
             {
 
-                cmd.CommandText = "call getDevicesByStatus(@status)";
-               cmd.Parameters.AddWithValue("@status", status);
+                cmd.CommandText = "call getDevicesBySearch(@search)";
+               cmd.Parameters.AddWithValue("@search", search);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                     return ReadAll(reader);
             }
@@ -85,9 +98,11 @@ namespace device_management.Models
                     post.warranty_year = GetSafeString(reader, "warranty_year");
                     post.status = GetSafeString(reader, "status");
                     post.purchase_date = Convert.ToDateTime(reader["purchase_date"]).ToString("dd/MM/yyyy");
-                    post.specifications = ReadSpecification(reader,post.specifications);
-
-
+                    post.specifications = ReadSpecification(reader, post.specifications);
+                    post.assign_date = GetSafeString(reader, "assign_date");
+                    post.return_date = GetSafeString(reader,"return_date");
+                    post.assign_by = ReadName(reader,post.assign_by,"assign_by");
+                    post.assign_to =ReadName(reader,post.assign_to,"assign_to");
                     posts.Add(post);
                 }
             }

@@ -15,19 +15,8 @@ namespace device_management.Models
         public string Connectivity { get; set; }
 
 
-/*
-        internal Appdb Db { get; set; }
 
-        public Specification()
-        {
-        }
-
-        internal Specification(Appdb db)
-        {
-            Db = db;
-        }
-        */
-     
+       
     }
 }
 

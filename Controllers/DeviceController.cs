@@ -28,13 +28,13 @@ namespace device_management.Controllers
             return Ok(result);
         }
         [HttpGet]
-        [Route("{status}")]
+        [Route("{search}")]
 
-        public IActionResult getDeviceswithStatus(String Status)
+        public IActionResult getDeviceswithSearch(String search)
         {
             Db.Connection.Open();
             var query = new devices(Db);
-            var result = query.getDeviceByStatus(Status);
+            var result = query.getDeviceBySearch(search);
             Db.Connection.Close();
             return Ok(result);
 
