@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Y6Si1k+CBJMXMuPIN/sINRh4RY5pQZgp2cMeRJi22rqAK70q/ZaxGXjPwF/vsvtNSJF6QppC1Mn9bV6ARpMPLA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\91720\\source\\repos\\device_management\\device_management\\device_management.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\91720\\.nuget\\packages\\mysqlconnector\\0.62.0\\mysqlconnector.0.62.0.nupkg.sha512"
+  ],
+  "logs": []
+}
