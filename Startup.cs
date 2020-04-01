@@ -26,6 +26,8 @@ namespace device_management
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<Appdb>(_ => new Appdb(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddCors();
+
             services.AddControllers();
         }
 
@@ -36,10 +38,10 @@ namespace device_management
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();
 
@@ -47,6 +49,6 @@ namespace device_management
             {
                 endpoints.MapControllers();
             });
-        }
+        }       
     }
 }
